@@ -6,8 +6,9 @@ import Clocks from './Clocks.css';
 
 ReactDOM.render(
 
- <Clocks />
-
+ <Clocks />,
+ 
+ document.getElementById('root')
 
 );
 

@@ -1,82 +1,64 @@
 import React, { useState } from 'react';
+import "./Clocks.css";
 
 
 export default function  Clock  ( )  {
-    const [inputTime, setInputValue] = useState("");
 
- inputTime 
+    const [inputTime, setInputTime] = useState("");
 
- 
-    constructor() {
-        super();
-        this.state = {
-            hour: 0, 
-            min: 0, 
-            second : 0, 
-            time : ""
-        };
-        this.update = this.update.bind(this);
+      
+    setInterval(reloj, 1000);
+
+    function reloj() {
+        let time = new Date();
+
+
+        
+        let horas = time.getHours();
+        let minutos = time.getMinutes();
+        let segundos = time.getSeconds();
+
+        let porcentajeHoras = 0;
+        let porcentajeMinutos = 0;
+        let porcentajeSegundos = 0;
+
+        if (horas >= 12) {
+            porcentajeHoras = horas / 12 * 360;
+        }  else {
+            porcentajeHoras = horas / 24 * 360;
+        }
+
+        porcentajeHoras = minutos + (minutos / 60 * 30);
+        porcentajeMinutos = minutos / 60 * 360;
+        porcentajeSegundos = segundos / 60 * 360;
+
+        document.getElementById("horas").style.transform = "rotate("+ porcentajeHoras +"deg)";
+        document.getElementById("minutos").style.transform = "rotate("+ porcentajeMinutos +"deg)";
+        document.getElementById("segundos").style.transform = "rotate("+ porcentajeSegundos +"deg)";
+        document.getElementById("p-content").innerHTML = horas + ":" + minutos + ":" + segundos; 
     }
 
-    class Hand extends React.Component{
-        render(){
-            const divStyle = {transform: `rotate(${this.props.time}deg)`};
-            const nomClass = `hand hour-${this.props.type}`;        
-            return <div className={nomClass} style={divStyle}></div>;
-        };
-    };
+
 
     return (
         <>
-            <div>                    
-                <h1>{this.props.timeZone} - {this.state.time}</h1>
-                <div className="clock">                 
-                    <div className="clock-face">
-                    <Hand type="hour" time={this.state.hour}/>
-                    <Hand type="min" time={this.state.min}/>
-                    <Hand type="second" time={this.state.second}/>
+            <div className="flex">
+                <div className="contenido">
+                    <div className="reloj">
+                        <img src="aguja.png" id="horas" alt="horas"></img>
+                        <img src="agujaMinutos.png" id="minutos" alt="minutos"></img>
+                        <img src="agujaSegundos.png" id="segundos" alt="segundos"></img>
                     </div>
                 </div>
-                <hr/>
+                <div className="contenido">
+                    <h4 id="h4-content">¡Hora actual!</h4>
+                    <p id="p-content"></p>
+                </div>
             </div>
         
         </>
     );
 
 }
-
-
-
-c
-
-    update(event){
-        const date = new Date().toLocaleString("en-US", {timeZone: this.props.timeZone}).split(" ")[1];
-        const time = date.split(":");        
-        this.setState({
-            hour: ((Number(time[0]) / 12) * 360) + 90, 
-            min: ((Number(time[1]) / 60) * 360) + 90, 
-            second : ((Number(time[2]) / 60) * 360) + 90, 
-            time : date
-        });        
-    }
-
-    componentWillMount(){        
-        setInterval(this.update, 1000);
-        this.update();
-    }
-
-
-    
-};
-
-Clock.propTypes = {
-    timeZone : React.PropTypes.string.isRequired
-};
-
-//Para establecer valores por defecto...
-Clock.defaultProps = {
-    timeZone : "America/Bogota"
-};
-
 
 

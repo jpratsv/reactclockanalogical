@@ -1,6 +1,6 @@
 .reloj {
 	padding: 100px;
-	background-image: url("gis.jpg");
+	background-image: url("./../public/img/gis.jpg");
 	width: 350px;
 	height: 350px;
 	border-radius: 370px;

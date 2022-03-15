@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 import "./Clocks.css";
+import { useState } from "react";
 
 function reloj() {
   let time = new Date();
@@ -7,6 +8,10 @@ function reloj() {
   let horas = time.getHours();
   let minutos = time.getMinutes();
   let segundos = time.getSeconds();
+
+  let dia = time.getDate();
+  let mes = time.getMonth() + 1;
+  let ano = time.getFullYear();
 
   let porcentajeHoras = 0;
   let porcentajeMinutos = 0;
@@ -18,24 +23,33 @@ function reloj() {
     porcentajeHoras = (horas / 24) * 360;
   }
 
-  porcentajeHoras = minutos + (minutos / 60) * 30;
+  porcentajeHoras += (minutos / 60) * 30;
   porcentajeMinutos = (minutos / 60) * 360;
   porcentajeSegundos = (segundos / 60) * 360;
 
   document.getElementById("horas").style.transform =
     "rotate(" + porcentajeHoras + "deg)";
+
   document.getElementById("minutos").style.transform =
     "rotate(" + porcentajeMinutos + "deg)";
+
   document.getElementById("segundos").style.transform =
     "rotate(" + porcentajeSegundos + "deg)";
+
   document.getElementById("p-content").innerHTML =
     horas + ":" + minutos + ":" + segundos;
+
+  document.getElementById("p-fecha").innerHTML = dia + "/" + mes + "/" + ano;
 }
 
 export default function Clock() {
-  const [inputTime, setInputTime] = useState("");
+  const [visible, setVisible] = useState("visible");
 
   setInterval(reloj, 1000);
+
+  const toggle = () => {
+    setVisible((actual) => (actual === "visible" ? "oculto" : "visible"));
+  };
 
   return (
     <>
@@ -62,6 +76,9 @@ export default function Clock() {
         <div className="contenido">
           <h4 id="h4-content">¡Hora actual!</h4>
           <p id="p-content"></p>
+          <p id="p-fecha" className={visible}></p>
+          <br></br>
+          <button onClick={toggle}>Data, M/O</button>
         </div>
       </div>
     </>

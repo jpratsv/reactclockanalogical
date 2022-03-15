@@ -46,14 +46,24 @@ body {
 	flex: 5 5;
 }
 
+.contenido {
+	text-align: center;
+
+}
 
 .contenido p {
 	font-size: 70px;
 	color: #333;
-	text-align: center;
+
 }
 .contenido h4 {
 	font-size: 80px;
 	color: #333;
-	text-align: center;
+
 }
+
+.oculto {
+	display: none;
+}
+
+.visible {display: inline;}
